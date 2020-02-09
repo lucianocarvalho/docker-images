@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ../src:/var/www
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+    ports:
+      - "80:80"
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    volumes:
+      - ../src:/var/www
+
+  mysql:
+    build:
+      context: ./mysql
+    environment:
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=docker
+
+  postgres:
+    build:
+      context: ./postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
