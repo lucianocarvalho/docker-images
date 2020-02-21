@@ -35,3 +35,9 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+
+  beanstalkd:
+    build:
+      context: ./beanstalkd
+    ports:
+      - "12301:11300"
