@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.6'
 services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
@@ -7,13 +7,13 @@ services:
       - "2181:2181"
 
   kafka-manager:
-    image: hlebalbau/kafka-manager
+    image: solsson/kafka-manager
     container_name: kafka-manager
     ports:
       - "9000:9000"
     environment:
       APPLICATION_SECRET: letmein
-      ZK_HOSTS:  zookeeper:2181
+      ZK_HOSTS: zookeeper:2181
 
   kafka1:
     image: wurstmeister/kafka:latest
